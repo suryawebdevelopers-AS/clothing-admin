@@ -54,29 +54,62 @@ const Inventory = () => {
   // handle submit
 
   const handleSubmit = async () => {
-    console.log('submit button clicked')
     try {
-      const response = await fetch('https://clothing-be.onrender.com/addproduct', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-  
+      const formDataToSend = new FormData();
+      formDataToSend.append("category", formData.category);
+      formDataToSend.append("subCategory", formData.subCategory);
+      formDataToSend.append("productName", formData.productName);
+      formDataToSend.append("price", formData.price);
+      formDataToSend.append("color", formData.color);
+      formDataToSend.append("fabric", formData.fabric);
+      formDataToSend.append("fit", formData.fit);
+      formDataToSend.append("washCare", formData.washCare);
+      formDataToSend.append("description", formData.description);
+      formDataToSend.append(
+        "selectedSizes",
+        JSON.stringify(formData.selectedSizes)
+      );
+      formDataToSend.append("image1", formData.image1);
+      formDataToSend.append("image2", formData.image2);
+      formDataToSend.append("image3", formData.image3);
+      formDataToSend.append("image4", formData.image4);
+
+      const response = await fetch(
+        "https://clothing-be.onrender.com/addproduct",
+        {
+          method: "POST",
+          body: formDataToSend,
+        }
+      );
+
       if (response.ok) {
-        console.log('Form data submitted successfully!');
-        alert('form data submitted succesfully')
-        // You can redirect or perform any other actions upon successful submission
+        console.log("Form data submitted successfully!");
+        // Reset form data after successful submission
+        setFormData({
+          category: "",
+          subCategory: "",
+          selectedSizes: [],
+          productName: "",
+          price: "",
+          color: "",
+          fabric: "",
+          fit: "",
+          washCare: "",
+          description: "",
+          image1: null,
+          image2: null,
+          image3: null,
+          image4: null,
+        });
+        alert("Form data submitted successfully!");
       } else {
-        console.error('Failed to submit form data.');
-        alert('error submitting form data')
+        console.error("Failed to submit form data.");
+        alert("Error submitting form data.");
       }
     } catch (error) {
-      console.error('Error submitting form data:', error);
+      console.error("Error submitting form data:", error);
     }
   };
-  
 
   return (
     <>
