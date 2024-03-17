@@ -16,7 +16,7 @@ const ProductUpdate = () => {
     subCategory: "",
     selectedSizes: [],
     productName: "",
-    price: "",
+    price: 0,
     color: "",
     fabric: "",
     fit: "",
@@ -34,7 +34,7 @@ const ProductUpdate = () => {
         category: selectedProduct.category || "",
         subCategory:selectedProduct.subCategory || '',
         productName: selectedProduct.productName || "",
-        price: selectedProduct.price || "",
+        price: selectedProduct.price || 0,
         color: selectedProduct.color || "",
         selectedSizes: selectedProduct.selectedSizes || "",
         fabric: selectedProduct.fabric || "",
@@ -71,13 +71,17 @@ const ProductUpdate = () => {
     });
 
     const handleFieldUpdate = async (fieldName, value) => {
+      console.log(fieldName,value)
+
       try {
         const response = await axios.put(
           `https://clothing-be.onrender.com/products/${selectedProduct._id}`,
+          
           {
             field : fieldName,
             value : value
           },
+          
           {
             headers: { "Content-Type": "application/json" },
           }
@@ -194,13 +198,14 @@ const ProductUpdate = () => {
           margin="dense"
           id="price"
           name="price"
-          type="text"
+          type="number"
           fullWidth
           variant="standard"
           value={editformData.price}
           onChange={(e) => handleChange(e, "price")}
         />
-        <Button onClick={() => handleFieldUpdate("price")}>Update Price</Button>
+        <p>{editformData.price}</p>
+        <Button onClick={() => handleFieldUpdate("price",editformData.price)}>Update Price</Button>
       </div>
 
       <div>
@@ -215,7 +220,7 @@ const ProductUpdate = () => {
           value={editformData.color}
           onChange={(e) => handleChange(e, "color")}
         />
-        <Button onClick={() => handleFieldUpdate("color")}>Update color</Button>
+        <Button onClick={() => handleFieldUpdate("color",editformData.color)}>Update color</Button>
       </div>
 
       <div>
@@ -230,7 +235,7 @@ const ProductUpdate = () => {
           value={editformData.selectedSizes}
           onChange={(e) => handleChange(e, "selectedSizes")}
         />
-        <Button onClick={() => handleFieldUpdate("selectedSizes")}>Update selectedSizes</Button>
+        <Button onClick={() => handleFieldUpdate("selectedSizes",editformData.selectedSizes)}>Update selectedSizes</Button>
       </div>
 
       <div>
@@ -245,7 +250,7 @@ const ProductUpdate = () => {
           value={editformData.fabric}
           onChange={(e) => handleChange(e, "fabric")}
         />
-        <Button onClick={() => handleFieldUpdate("fabric")}>Update Fabric</Button>
+        <Button onClick={() => handleFieldUpdate("fabric",editformData.fabric)}>Update Fabric</Button>
       </div>
 
       <div>
@@ -260,7 +265,7 @@ const ProductUpdate = () => {
           value={editformData.washCare}
           onChange={(e) => handleChange(e, "washCare")}
         />
-        <Button onClick={() => handleFieldUpdate("washCare")}>Update Wash Care</Button>
+        <Button onClick={() => handleFieldUpdate("washCare",editformData.washCare)}>Update Wash Care</Button>
       </div>
 
       <div>
@@ -275,7 +280,7 @@ const ProductUpdate = () => {
           value={editformData.fit}
           onChange={(e) => handleChange(e, "fit")}
         />
-        <Button onClick={() => handleFieldUpdate("fit")}>Update fit</Button>
+        <Button onClick={() => handleFieldUpdate("fit",editformData.fit)}>Update fit</Button>
       </div>
    <p>{selectedProduct._id}</p>
       <div>
@@ -290,7 +295,7 @@ const ProductUpdate = () => {
           value={editformData.description}
           onChange={(e) => handleChange(e, "description")}
         />
-        <Button onClick={() => handleFieldUpdate("description")}>Update Description</Button>
+        <Button onClick={() => handleFieldUpdate("description",editformData.description)}>Update Description</Button>
       </div>
 
       <div className="main-img-con">
@@ -304,7 +309,7 @@ const ProductUpdate = () => {
               />
             </div>
           )}
-          <Button onClick={() => handleFieldUpdate("image1")}>Update Image 1</Button>
+          <Button onClick={() => handleFieldUpdate("image1",editformData.image1)}>Update Image 1</Button>
         </div>
 
         <div className="sub-img-con">
@@ -317,7 +322,7 @@ const ProductUpdate = () => {
               />
             </div>
           )}
-          <Button onClick={() => handleFieldUpdate("image2")}>Update Image 2</Button>
+          <Button onClick={() => handleFieldUpdate("image2",editformData.image2)}>Update Image 2</Button>
         </div>
 
         <div className="sub-img-con">
@@ -330,7 +335,7 @@ const ProductUpdate = () => {
               />
             </div>
           )}
-          <Button onClick={() => handleFieldUpdate("image3")}>Update Image 3</Button>
+          <Button onClick={() => handleFieldUpdate("image3",editformData.image3)}>Update Image 3</Button>
         </div>
 
         <div className="sub-img-con">
@@ -343,7 +348,7 @@ const ProductUpdate = () => {
               />
             </div>
           )}
-          <Button onClick={() => handleFieldUpdate("image4")}>Update Image 4</Button>
+          <Button onClick={() => handleFieldUpdate("image4",editformData.image4)}>Update Image 4</Button>
         </div>
       </div>
 
